@@ -1,3 +1,7 @@
+/*
+ * original from ibus-fbterm
+ */
+
 #include <linux/keyboard.h>
 #include <fcitx-config/hotkey.h>
 #include "keymap.h"
