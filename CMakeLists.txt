@@ -1,4 +1,4 @@
-project(fcitx-googlepinyin)
+project(fcitx-fbterm)
 cmake_minimum_required(VERSION 2.6)
 FIND_PACKAGE(Gettext REQUIRED)
 FIND_PACKAGE(Fcitx REQUIRED)
