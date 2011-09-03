@@ -68,6 +68,7 @@ void connect_fbterm(char raw)
     msg.len = sizeof(msg);
     msg.raw = (raw ? 1 : 0);
     int ret = write(imfd, (char *)&msg, sizeof(msg));
+    (void) ret;
 }
 
 void put_im_text(const char *text, unsigned len)
@@ -81,6 +82,7 @@ void put_im_text(const char *text, unsigned len)
     memcpy(MSG(buf)->texts, text, len);
 
     int ret = write(imfd, buf, MSG(buf)->len);
+    (void) ret;
 }
 
 void set_im_window(unsigned id, Rectangle rect)
@@ -94,6 +96,7 @@ void set_im_window(unsigned id, Rectangle rect)
     msg.win.rect = rect;
 
     int ret = write(imfd, (char *)&msg, sizeof(msg));
+    (void) ret;
     wait_message(AckWin);
 }
 
@@ -107,6 +110,7 @@ void fill_rect(Rectangle rect, unsigned char color)
     msg.fillRect.color = color;
 
     int ret = write(imfd, (char *)&msg, sizeof(msg));
+    (void) ret;
 }
 
 void draw_text(unsigned x, unsigned y, unsigned char fc, unsigned char bc, const char *text, unsigned len)
@@ -125,6 +129,7 @@ void draw_text(unsigned x, unsigned y, unsigned char fc, unsigned char bc, const
     memcpy(MSG(buf)->drawText.texts, text, len);
 
     int ret = write(imfd, buf, MSG(buf)->len);
+    (void) ret;
 }
 
 static int process_message(Message *msg)
@@ -173,6 +178,7 @@ static int process_message(Message *msg)
         msg.type = AckHideUI;
         msg.len = sizeof(msg);
         int ret = write(imfd, (char *)&msg, sizeof(msg));
+        (void) ret;
         break;
         }
 
@@ -246,6 +252,7 @@ static void wait_message(MessageType type)
         msg.type = Ping;
         msg.len = sizeof(msg);
         int ret = write(imfd, (char *)&msg, sizeof(msg));
+        (void) ret;
     }
 }
 

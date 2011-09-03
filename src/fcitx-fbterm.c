@@ -93,7 +93,6 @@ static ImCallbacks cbs = {
 #define MARGIN 3
 
 static char raw_mode = 1;
-static char first_show = 1;
 static int cursor_x;
 static int cursor_y;
 static GMainLoop *main_loop;
@@ -202,16 +201,18 @@ static void im_show(unsigned winid)
     int totalheight = 3 * (MARGIN * 2 + currentInfo.fontHeight);
 
     Rectangle rect;
-    rect.x = cursor_x + currentInfo.fontWidth;
-    rect.y = cursor_y + currentInfo.fontHeight;
-    if (rect.y + totalheight > currentInfo.screenHeight)
-        rect.y = cursor_y - totalheight - currentInfo.fontHeight * 2;
-    if (rect.y < 0)
-        rect.y = 0;
-    if (rect.x + width > currentInfo.screenWidth)
-        rect.x = currentInfo.screenWidth - width;
-    if (rect.x < 0)
-        rect.x = 0;
+    int x, y;
+    x = cursor_x + currentInfo.fontWidth;
+    y = cursor_y + currentInfo.fontHeight;
+    if (y + totalheight > currentInfo.screenHeight)
+        y = cursor_y - totalheight - currentInfo.fontHeight * 2;
+    if (y < 0)
+        y = 0;
+    if (x + width > currentInfo.screenWidth)
+        x = currentInfo.screenWidth - width;
+    if (x < 0)
+        x = 0;
+    rect.x = x; rect.y = y;
 
     DRAW_NEXT_STRING(textup, 0, textup[0]);
     DRAW_NEXT_STRING(textdown, 1, textdown[0]);
