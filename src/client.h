@@ -21,9 +21,9 @@
 #define FCITX_CLIENT_H
 
 #include <dbus/dbus-glib.h>
-#include "fcitx-config/fcitx-config.h"
-#include "fcitx/ime.h"
-#include "fcitx/frontend.h"
+#include <fcitx-config/fcitx-config.h>
+#include <fcitx/ime.h>
+#include <fcitx/frontend.h>
 
 #ifdef __cplusplus
 extern "C" {

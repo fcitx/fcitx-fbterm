@@ -21,12 +21,18 @@ ${CMAKE_CURRENT_BINARY_DIR}
 ${GLIB2_INCLUDE_DIRS}
 ${GIO2_INCLUDE_DIRS}
 ${DBUS_GLIB_INCLUDE_DIRS}
+${FCITX4_FCITX_INCLUDE_DIRS}
+${FCITX4_FCITX_UTILS_INCLUDE_DIRS}
+${FCITX4_FCITX_CONFIG_INCLUDE_DIRS}
 )
 
 link_directories(
 ${GLIB2_LIBRARY_DIRS}
 ${GIO2_LIBRARY_DIRS}
 ${DBUS_GLIB_LIBRARY_DIRS}
+${FCITX4_FCITX_LIBRARY_DIRS}
+${FCITX4_FCITX_UTILS_LIBRARY_DIRS}
+${FCITX4_FCITX_CONFIG_LIBRARY_DIRS}
 )
 
 set(fcitx_fbterm_SOURCES
@@ -40,7 +46,13 @@ set(fcitx_fbterm_SOURCES
 )
 
 add_executable(fcitx-fbterm ${fcitx_fbterm_SOURCES})
-target_link_libraries(fcitx-fbterm ${GLIB2_LIBRARIES} ${DBUS_GLIB_LIBRARIES} ${GIO2_LIBRARIES}
-${FCITX4_FCITX_LIBRARIES})
+target_link_libraries(fcitx-fbterm
+                      ${GLIB2_LIBRARIES}
+                      ${DBUS_GLIB_LIBRARIES}
+                      ${GIO2_LIBRARIES}
+                      ${FCITX4_FCITX_LIBRARIES}
+                      ${FCITX4_FCITX_CONFIG_LIBRARIES}
+                      ${FCITX4_FCITX_UTILS_LIBRARIES}
+                      )
 
 install(TARGETS fcitx-fbterm DESTINATION ${bindir})
