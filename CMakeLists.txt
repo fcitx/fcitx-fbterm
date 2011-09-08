@@ -32,3 +32,4 @@ set(CMAKE_MODULE_LINKER_FLAGS "-Wl,--no-undefined,--as-needed ${CMAKE_MODULE_LIN
 set(libdir ${LIB_INSTALL_DIR})
 
 add_subdirectory(src)
+add_subdirectory(scripts)
