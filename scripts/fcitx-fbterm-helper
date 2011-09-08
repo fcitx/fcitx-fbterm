@@ -49,7 +49,7 @@ echo '========================================================='
 
 if [ "$FCITX_RUN" == "0" -a "$LAUNCH" == "1" ]; then
     echo "Try launch fcitx..."
-    ps -U `whoami` | grep -q fcitx
+    pgrep -u `whoami` '^fcitx$' > /dev/null 2>&1
     if [ $? == "0" ]; then
         echo "There is already a fcitx running, Fcitx cannot support multi instance currently"
         exit 1
@@ -61,7 +61,8 @@ if [ "$FCITX_RUN" == "0" -a "$LAUNCH" == "1" ]; then
     fi
     if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
         echo "Launch DBus..."
-        eval `dbus-launch --sh-syntax --exit-with-session`
+        toeval=`dbus-launch --auto-syntax`
+        eval "$toeval"
     fi
     echo "Launch Fcitx..."
     fcitx > /dev/null 2>&1
