@@ -387,3 +387,4 @@ HOTKEYS* FcitxIMClientGetTriggerKey(FcitxIMClient* client)
     return client->triggerkey;
 }
 // kate: indent-mode cstyle; space-indent on; indent-width 0;
+

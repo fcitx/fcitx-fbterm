@@ -291,3 +291,4 @@ char *keysym_to_term_string(unsigned short keysym, char down)
     buf[index] = 0;
     return buf;
 }
+

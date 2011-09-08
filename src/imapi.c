@@ -284,3 +284,4 @@ int check_im_message()
 
     return !exit;
 }
+

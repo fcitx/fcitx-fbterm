@@ -304,3 +304,4 @@ KEY_STATE calculate_modifiers(KEY_STATE state, FcitxKeySym keyval, char down)
 
     return state;
 }
+
