@@ -120,6 +120,7 @@ static void im_deactive(void)
     Rectangle rect = { 0, 0, 0, 0 };
     set_im_window(0, rect);
     set_im_window(1, rect);
+    set_im_window(2, rect);
     FcitxIMClientCloseIC(client);
     state = 0;
     active = 0;
