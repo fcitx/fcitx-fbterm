@@ -42,7 +42,7 @@ extern "C" {
     void FcitxIMClientFocusIn(FcitxIMClient* client);
     void FcitxIMClientFocusOut(FcitxIMClient* client);
     void FcitxIMClientSetCursorLocation(FcitxIMClient* client, int x, int y);
-    void FcitxIMClientSetCapacity(FcitxIMClient* client, CapacityFlags flags);
+    void FcitxIMClientSetCapacity(FcitxIMClient* client, FcitxCapacityFlags flags);
     void FcitxIMClientReset(FcitxIMClient* client);
     int FcitxIMClientProcessKey(FcitxIMClient* client, uint32_t keyval, uint32_t keycode, uint32_t state, FcitxKeyEventType type, uint32_t t);
     void FcitxIMClientConnectSignal(FcitxIMClient* imclient,

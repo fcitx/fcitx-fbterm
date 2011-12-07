@@ -298,7 +298,7 @@ void _fcitx_fbterm_connect_cb(FcitxIMClient* client, void* user_data)
                                    user_data,
                                    NULL);
 
-        CapacityFlags flags = CAPACITY_CLIENT_SIDE_UI;
+        FcitxCapacityFlags flags = CAPACITY_CLIENT_SIDE_UI;
         FcitxIMClientSetCapacity(client, flags);
 
         if (active)
