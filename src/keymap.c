@@ -7,70 +7,70 @@
 #include "keymap.h"
 
 static FcitxKeySym linux_to_x[256] = {
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_BackSpace,   Key_Tab,     Key_Linefeed,    Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_Escape,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_space,   Key_exclam,  Key_quotedbl,    Key_numbersign,
-    Key_dollar,  Key_percent, Key_ampersand,   Key_apostrophe,
-    Key_parenleft,   Key_parenright,  Key_asterisk,    Key_plus,
-    Key_comma,   Key_minus,   Key_period,  Key_slash,
-    Key_0,       Key_1,       Key_2,       Key_3,
-    Key_4,       Key_5,       Key_6,       Key_7,
-    Key_8,       Key_9,       Key_colon,   Key_semicolon,
-    Key_less,    Key_equal,   Key_greater, Key_question,
-    Key_at,      Key_A,       Key_B,       Key_C,
-    Key_D,       Key_E,       Key_F,       Key_G,
-    Key_H,       Key_I,       Key_J,       Key_K,
-    Key_L,       Key_M,       Key_N,       Key_O,
-    Key_P,       Key_Q,       Key_R,       Key_S,
-    Key_T,       Key_U,       Key_V,       Key_W,
-    Key_X,       Key_Y,       Key_Z,       Key_bracketleft,
-    Key_backslash,   Key_bracketright,Key_asciicircum, Key_underscore,
-    Key_grave,   Key_a,       Key_b,       Key_c,
-    Key_d,       Key_e,       Key_f,       Key_g,
-    Key_h,       Key_i,       Key_j,       Key_k,
-    Key_l,       Key_m,       Key_n,       Key_o,
-    Key_p,       Key_q,       Key_r,       Key_s,
-    Key_t,       Key_u,       Key_v,       Key_w,
-    Key_x,       Key_y,       Key_z,       Key_braceleft,
-    Key_bar,     Key_braceright,  Key_asciitilde,  Key_BackSpace,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_None,   Key_None,   Key_None,   Key_None,
-    Key_nobreakspace,Key_exclamdown,  Key_cent,    Key_sterling,
-    Key_currency,    Key_yen,     Key_brokenbar,   Key_section,
-    Key_diaeresis,   Key_copyright,   Key_ordfeminine, Key_guillemotleft,
-    Key_notsign, Key_hyphen,  Key_registered,  Key_macron,
-    Key_degree,  Key_plusminus,   Key_twosuperior, Key_threesuperior,
-    Key_acute,   Key_mu,      Key_paragraph,   Key_periodcentered,
-    Key_cedilla, Key_onesuperior, Key_masculine,   Key_guillemotright,
-    Key_onequarter,  Key_onehalf, Key_threequarters,Key_questiondown,
-    Key_Agrave,  Key_Aacute,  Key_Acircumflex, Key_Atilde,
-    Key_Adiaeresis,  Key_Aring,   Key_AE,      Key_Ccedilla,
-    Key_Egrave,  Key_Eacute,  Key_Ecircumflex, Key_Ediaeresis,
-    Key_Igrave,  Key_Iacute,  Key_Icircumflex, Key_Idiaeresis,
-    Key_ETH,     Key_Ntilde,  Key_Ograve,  Key_Oacute,
-    Key_Ocircumflex, Key_Otilde,  Key_Odiaeresis,  Key_multiply,
-    Key_Ooblique,    Key_Ugrave,  Key_Uacute,  Key_Ucircumflex,
-    Key_Udiaeresis,  Key_Yacute,  Key_THORN,   Key_ssharp,
-    Key_agrave,  Key_aacute,  Key_acircumflex, Key_atilde,
-    Key_adiaeresis,  Key_aring,   Key_ae,      Key_ccedilla,
-    Key_egrave,  Key_eacute,  Key_ecircumflex, Key_ediaeresis,
-    Key_igrave,  Key_iacute,  Key_icircumflex, Key_idiaeresis,
-    Key_eth,     Key_ntilde,  Key_ograve,  Key_oacute,
-    Key_ocircumflex, Key_otilde,  Key_odiaeresis,  Key_division,
-    Key_oslash,  Key_ugrave,  Key_uacute,  Key_ucircumflex,
-    Key_udiaeresis,  Key_yacute,  Key_thorn,   Key_ydiaeresis
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_BackSpace,   FcitxKey_Tab,     FcitxKey_Linefeed,    FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_Escape,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_space,   FcitxKey_exclam,  FcitxKey_quotedbl,    FcitxKey_numbersign,
+    FcitxKey_dollar,  FcitxKey_percent, FcitxKey_ampersand,   FcitxKey_apostrophe,
+    FcitxKey_parenleft,   FcitxKey_parenright,  FcitxKey_asterisk,    FcitxKey_plus,
+    FcitxKey_comma,   FcitxKey_minus,   FcitxKey_period,  FcitxKey_slash,
+    FcitxKey_0,       FcitxKey_1,       FcitxKey_2,       FcitxKey_3,
+    FcitxKey_4,       FcitxKey_5,       FcitxKey_6,       FcitxKey_7,
+    FcitxKey_8,       FcitxKey_9,       FcitxKey_colon,   FcitxKey_semicolon,
+    FcitxKey_less,    FcitxKey_equal,   FcitxKey_greater, FcitxKey_question,
+    FcitxKey_at,      FcitxKey_A,       FcitxKey_B,       FcitxKey_C,
+    FcitxKey_D,       FcitxKey_E,       FcitxKey_F,       FcitxKey_G,
+    FcitxKey_H,       FcitxKey_I,       FcitxKey_J,       FcitxKey_K,
+    FcitxKey_L,       FcitxKey_M,       FcitxKey_N,       FcitxKey_O,
+    FcitxKey_P,       FcitxKey_Q,       FcitxKey_R,       FcitxKey_S,
+    FcitxKey_T,       FcitxKey_U,       FcitxKey_V,       FcitxKey_W,
+    FcitxKey_X,       FcitxKey_Y,       FcitxKey_Z,       FcitxKey_bracketleft,
+    FcitxKey_backslash,   FcitxKey_bracketright,FcitxKey_asciicircum, FcitxKey_underscore,
+    FcitxKey_grave,   FcitxKey_a,       FcitxKey_b,       FcitxKey_c,
+    FcitxKey_d,       FcitxKey_e,       FcitxKey_f,       FcitxKey_g,
+    FcitxKey_h,       FcitxKey_i,       FcitxKey_j,       FcitxKey_k,
+    FcitxKey_l,       FcitxKey_m,       FcitxKey_n,       FcitxKey_o,
+    FcitxKey_p,       FcitxKey_q,       FcitxKey_r,       FcitxKey_s,
+    FcitxKey_t,       FcitxKey_u,       FcitxKey_v,       FcitxKey_w,
+    FcitxKey_x,       FcitxKey_y,       FcitxKey_z,       FcitxKey_braceleft,
+    FcitxKey_bar,     FcitxKey_braceright,  FcitxKey_asciitilde,  FcitxKey_BackSpace,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_None,   FcitxKey_None,   FcitxKey_None,   FcitxKey_None,
+    FcitxKey_nobreakspace,FcitxKey_exclamdown,  FcitxKey_cent,    FcitxKey_sterling,
+    FcitxKey_currency,    FcitxKey_yen,     FcitxKey_brokenbar,   FcitxKey_section,
+    FcitxKey_diaeresis,   FcitxKey_copyright,   FcitxKey_ordfeminine, FcitxKey_guillemotleft,
+    FcitxKey_notsign, FcitxKey_hyphen,  FcitxKey_registered,  FcitxKey_macron,
+    FcitxKey_degree,  FcitxKey_plusminus,   FcitxKey_twosuperior, FcitxKey_threesuperior,
+    FcitxKey_acute,   FcitxKey_mu,      FcitxKey_paragraph,   FcitxKey_periodcentered,
+    FcitxKey_cedilla, FcitxKey_onesuperior, FcitxKey_masculine,   FcitxKey_guillemotright,
+    FcitxKey_onequarter,  FcitxKey_onehalf, FcitxKey_threequarters,FcitxKey_questiondown,
+    FcitxKey_Agrave,  FcitxKey_Aacute,  FcitxKey_Acircumflex, FcitxKey_Atilde,
+    FcitxKey_Adiaeresis,  FcitxKey_Aring,   FcitxKey_AE,      FcitxKey_Ccedilla,
+    FcitxKey_Egrave,  FcitxKey_Eacute,  FcitxKey_Ecircumflex, FcitxKey_Ediaeresis,
+    FcitxKey_Igrave,  FcitxKey_Iacute,  FcitxKey_Icircumflex, FcitxKey_Idiaeresis,
+    FcitxKey_ETH,     FcitxKey_Ntilde,  FcitxKey_Ograve,  FcitxKey_Oacute,
+    FcitxKey_Ocircumflex, FcitxKey_Otilde,  FcitxKey_Odiaeresis,  FcitxKey_multiply,
+    FcitxKey_Ooblique,    FcitxKey_Ugrave,  FcitxKey_Uacute,  FcitxKey_Ucircumflex,
+    FcitxKey_Udiaeresis,  FcitxKey_Yacute,  FcitxKey_THORN,   FcitxKey_ssharp,
+    FcitxKey_agrave,  FcitxKey_aacute,  FcitxKey_acircumflex, FcitxKey_atilde,
+    FcitxKey_adiaeresis,  FcitxKey_aring,   FcitxKey_ae,      FcitxKey_ccedilla,
+    FcitxKey_egrave,  FcitxKey_eacute,  FcitxKey_ecircumflex, FcitxKey_ediaeresis,
+    FcitxKey_igrave,  FcitxKey_iacute,  FcitxKey_icircumflex, FcitxKey_idiaeresis,
+    FcitxKey_eth,     FcitxKey_ntilde,  FcitxKey_ograve,  FcitxKey_oacute,
+    FcitxKey_ocircumflex, FcitxKey_otilde,  FcitxKey_odiaeresis,  FcitxKey_division,
+    FcitxKey_oslash,  FcitxKey_ugrave,  FcitxKey_uacute,  FcitxKey_ucircumflex,
+    FcitxKey_udiaeresis,  FcitxKey_yacute,  FcitxKey_thorn,   FcitxKey_ydiaeresis
 };
 
 FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short keycode)
@@ -85,37 +85,37 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
 
     case KT_FN:
         if (kval <= 19)
-            keyval = Key_F1 + kval;
+            keyval = FcitxKey_F1 + kval;
         else switch (keysym) {
             case K_FIND:
-                keyval = Key_Home; /* or Key_Find */
+                keyval = FcitxKey_Home; /* or FcitxKey_Find */
                 break;
             case K_INSERT:
-                keyval = Key_Insert;
+                keyval = FcitxKey_Insert;
                 break;
             case K_REMOVE:
-                keyval = Key_Delete;
+                keyval = FcitxKey_Delete;
                 break;
             case K_SELECT:
-                keyval = Key_End; /* or Key_Select */
+                keyval = FcitxKey_End; /* or FcitxKey_Select */
                 break;
             case K_PGUP:
-                keyval = Key_Prior;
+                keyval = FcitxKey_Prior;
                 break;
             case K_PGDN:
-                keyval = Key_Next;
+                keyval = FcitxKey_Next;
                 break;
             case K_HELP:
-                keyval = Key_Help;
+                keyval = FcitxKey_Help;
                 break;
             case K_DO:
-                keyval = Key_Execute;
+                keyval = FcitxKey_Execute;
                 break;
             case K_PAUSE:
-                keyval = Key_Pause;
+                keyval = FcitxKey_Pause;
                 break;
             case K_MACRO:
-                keyval = Key_Menu;
+                keyval = FcitxKey_Menu;
                 break;
             default:
                 break;
@@ -125,22 +125,22 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
     case KT_SPEC:
         switch (keysym) {
         case K_ENTER:
-            keyval = Key_Return;
+            keyval = FcitxKey_Return;
             break;
         case K_BREAK:
-            keyval = Key_Break;
+            keyval = FcitxKey_Break;
             break;
         case K_CAPS:
-            keyval = Key_Caps_Lock;
+            keyval = FcitxKey_Caps_Lock;
             break;
         case K_NUM:
-            keyval = Key_Num_Lock;
+            keyval = FcitxKey_Num_Lock;
             break;
         case K_HOLD:
-            keyval = Key_Scroll_Lock;
+            keyval = FcitxKey_Scroll_Lock;
             break;
         case K_COMPOSE:
-            keyval = Key_Multi_key;
+            keyval = FcitxKey_Multi_key;
             break;
         default:
             break;
@@ -150,32 +150,32 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
     case KT_PAD:
         switch (keysym) {
         case K_PPLUS:
-            keyval = Key_KP_Add;
+            keyval = FcitxKey_KP_Add;
             break;
         case K_PMINUS:
-            keyval = Key_KP_Subtract;
+            keyval = FcitxKey_KP_Subtract;
             break;
         case K_PSTAR:
-            keyval = Key_KP_Multiply;
+            keyval = FcitxKey_KP_Multiply;
             break;
         case K_PSLASH:
-            keyval = Key_KP_Divide;
+            keyval = FcitxKey_KP_Divide;
             break;
         case K_PENTER:
-            keyval = Key_KP_Enter;
+            keyval = FcitxKey_KP_Enter;
             break;
         case K_PCOMMA:
-            keyval = Key_KP_Separator;
+            keyval = FcitxKey_KP_Separator;
             break;
         case K_PDOT:
-            keyval = Key_KP_Decimal;
+            keyval = FcitxKey_KP_Decimal;
             break;
         case K_PPLUSMINUS:
-            keyval = Key_KP_Subtract;
+            keyval = FcitxKey_KP_Subtract;
             break;
         default:
             if (kval <= 9)
-                keyval = Key_KP_0 + kval;
+                keyval = FcitxKey_KP_0 + kval;
             break;
         }
         break;
@@ -186,19 +186,19 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
     case KT_DEAD:
         switch (keysym) {
         case K_DGRAVE:
-            keyval = Key_dead_grave;
+            keyval = FcitxKey_dead_grave;
             break;
         case K_DACUTE:
-            keyval = Key_dead_acute;
+            keyval = FcitxKey_dead_acute;
             break;
         case K_DCIRCM:
-            keyval = Key_dead_circumflex;
+            keyval = FcitxKey_dead_circumflex;
             break;
         case K_DTILDE:
-            keyval = Key_dead_tilde;
+            keyval = FcitxKey_dead_tilde;
             break;
         case K_DDIERE:
-            keyval = Key_dead_diaeresis;
+            keyval = FcitxKey_dead_diaeresis;
             break;
         }
         break;
@@ -206,16 +206,16 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
     case KT_CUR:
         switch (keysym) {
         case K_DOWN:
-            keyval = Key_Down;
+            keyval = FcitxKey_Down;
             break;
         case K_LEFT:
-            keyval = Key_Left;
+            keyval = FcitxKey_Left;
             break;
         case K_RIGHT:
-            keyval = Key_Right;
+            keyval = FcitxKey_Right;
             break;
         case K_UP:
-            keyval = Key_Up;
+            keyval = FcitxKey_Up;
             break;
         }
         break;
@@ -223,31 +223,31 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
     case KT_SHIFT:
         switch (keysym) {
         case K_ALTGR:
-            keyval = Key_Alt_R;
+            keyval = FcitxKey_Alt_R;
             break;
         case K_ALT:
             keyval = (keycode == 0x64 ?
-                      Key_Alt_R : Key_Alt_L);
+                      FcitxKey_Alt_R : FcitxKey_Alt_L);
             break;
         case K_CTRL:
             keyval = (keycode == 0x61 ?
-                      Key_Control_R : Key_Control_L);
+                      FcitxKey_Control_R : FcitxKey_Control_L);
             break;
         case K_CTRLL:
-            keyval = Key_Control_L;
+            keyval = FcitxKey_Control_L;
             break;
         case K_CTRLR:
-            keyval = Key_Control_R;
+            keyval = FcitxKey_Control_R;
             break;
         case K_SHIFT:
             keyval = (keycode == 0x36 ?
-                      Key_Shift_R : Key_Shift_L);
+                      FcitxKey_Shift_R : FcitxKey_Shift_L);
             break;
         case K_SHIFTL:
-            keyval = Key_Shift_L;
+            keyval = FcitxKey_Shift_L;
             break;
         case K_SHIFTR:
-            keyval = Key_Shift_R;
+            keyval = FcitxKey_Shift_R;
             break;
         default:
             break;
@@ -263,7 +263,7 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
 
     case KT_LOCK:
         if (keysym == K_SHIFTLOCK)
-            keyval = Key_Shift_Lock;
+            keyval = FcitxKey_Shift_Lock;
         break;
 
     default:
@@ -273,24 +273,24 @@ FcitxKeySym linux_keysym_to_fcitx_keysym(unsigned short keysym, unsigned short k
     return keyval;
 }
 
-KEY_STATE calculate_modifiers(KEY_STATE state, FcitxKeySym keyval, char down)
+FcitxKeyState calculate_modifiers(FcitxKeyState state, FcitxKeySym keyval, char down)
 {
-    KEY_STATE mask = 0;
+    FcitxKeyState mask = 0;
     switch (keyval) {
-    case Key_Shift_L:
-    case Key_Shift_R:
-        mask = KEY_SHIFT_COMP;
+    case FcitxKey_Shift_L:
+    case FcitxKey_Shift_R:
+        mask = FcitxKeyState_Shift;
         break;
 
-    case Key_Control_L:
-    case Key_Control_R:
-        mask = KEY_CTRL_COMP;
+    case FcitxKey_Control_L:
+    case FcitxKey_Control_R:
+        mask = FcitxKeyState_Ctrl;
         break;
 
-    case Key_Alt_L:
-    case Key_Alt_R:
-    case Key_Meta_L:
-        mask = KEY_ALT_COMP;
+    case FcitxKey_Alt_L:
+    case FcitxKey_Alt_R:
+    case FcitxKey_Meta_L:
+        mask = FcitxKeyState_Alt;
         break;
 
     default:

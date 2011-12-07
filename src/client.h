@@ -54,7 +54,7 @@ extern "C" {
                                     void* user_data,
                                     GClosureNotify freefunc
                                    );
-    HOTKEYS* FcitxIMClientGetTriggerKey(FcitxIMClient* client);
+    FcitxHotkey* FcitxIMClientGetTriggerKey(FcitxIMClient* client);
 
 #ifdef __cplusplus
 }

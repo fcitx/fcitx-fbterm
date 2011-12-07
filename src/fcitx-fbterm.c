@@ -97,7 +97,7 @@ static int cursor_x;
 static int cursor_y;
 static GMainLoop *main_loop;
 static FcitxIMClient* client;
-static KEY_STATE state;
+static FcitxKeyState state;
 static int active = 0;
 static Info currentInfo;
 static char textup[BUFSIZE];
@@ -163,15 +163,15 @@ static unsigned int text_width(char* str)
         iconvW = iconv_open("ucs-4be", "utf-8");
     if (iconvW == (iconv_t) -1)
     {
-        return utf8_strlen(str);
+        return fcitx_utf8_strlen(str);
     }
     else
     {
         size_t len = strlen(str);
-        size_t charlen = utf8_strlen(str);
+        size_t charlen = fcitx_utf8_strlen(str);
         unsigned *wmessage;
         size_t wlen = (len + 1) * sizeof (unsigned);
-        wmessage = (unsigned *) fcitx_malloc0 ((len + 1) * sizeof (unsigned));
+        wmessage = (unsigned *) fcitx_utils_malloc0 ((len + 1) * sizeof (unsigned));
 
         char *inp = str;
         char *outp = (char*) wmessage;
@@ -246,7 +246,7 @@ static void process_raw_key(char *buf, unsigned int len)
             unsigned short linux_keysym = keycode_to_keysym(code, down);
             FcitxKeySym keysym = linux_keysym_to_fcitx_keysym(linux_keysym, code);
 
-            if (keysym == Key_None)
+            if (keysym == FcitxKey_None)
                 continue;
 
             FcitxIMClientFocusIn(client);
