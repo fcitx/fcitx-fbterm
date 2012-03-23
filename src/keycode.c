@@ -26,6 +26,7 @@
 #include <linux/keyboard.h>
 #include <linux/input.h>
 #include "input_key.h"
+#include "keycode.h"
 
 static char key_down[NR_KEYS];
 static unsigned char shift_down[NR_SHIFT];
@@ -50,7 +51,7 @@ void update_term_mode(char crlf, char appkey, char curo)
     cursor_esco = curo;
 }
 
-unsigned short keycode_to_keysym(unsigned short keycode, char down)
+unsigned short keycode_to_keysym(unsigned short keycode, char down, int fallback)
 {
     if (keycode >= NR_KEYS) return K_HOLE;
 
@@ -58,7 +59,10 @@ unsigned short keycode_to_keysym(unsigned short keycode, char down)
     key_down[keycode] = down;
 
     struct kbentry ke;
-    ke.kb_table = shift_state;
+    if (!fallback)
+        ke.kb_table = shift_state;
+    else
+        ke.kb_table = 0;
     ke.kb_index = keycode;
 
     if (ioctl(STDIN_FILENO, KDGKBENT, &ke) == -1) return K_HOLE;

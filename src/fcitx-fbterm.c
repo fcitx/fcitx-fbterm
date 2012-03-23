@@ -243,15 +243,16 @@ static void process_raw_key(char *buf, unsigned int len)
                 if (!(buf[i] & 0x80) || !(buf[i - 1] & 0x80)) continue;
             }
 
-            unsigned short linux_keysym = keycode_to_keysym(code, down);
+            unsigned short linux_keysym = keycode_to_keysym(code, down, 0);
             FcitxKeySym keysym = linux_keysym_to_fcitx_keysym(linux_keysym, code);
-
-            if (keysym == FcitxKey_None)
-                continue;
+            if (keysym == FcitxKey_None) {
+                unsigned short fallback_keysym = keycode_to_keysym(code, down, 1);
+                keysym = linux_keysym_to_fcitx_keysym(fallback_keysym, code);
+            }
 
             FcitxIMClientFocusIn(client);
 
-            if (FcitxIMClientProcessKey(client, keysym, code, state, (down ? FCITX_PRESS_KEY : FCITX_RELEASE_KEY), 0) <= 0) {
+            if (keysym == FcitxKey_None || FcitxIMClientProcessKey(client, keysym, code, state, (down ? FCITX_PRESS_KEY : FCITX_RELEASE_KEY), 0) <= 0) {
                 char *str = keysym_to_term_string(linux_keysym, down);
                 if (str)
                     put_im_text(str, strlen(str));

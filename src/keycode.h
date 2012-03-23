@@ -29,7 +29,7 @@ void init_keycode_state();
 
 void update_term_mode(char crlf, char appkey, char curo);
 
-unsigned short keycode_to_keysym(unsigned short keycode, char down);
+unsigned short keycode_to_keysym(unsigned short keycode, char down, int fallback);
 
 unsigned short keypad_keysym_redirect(unsigned short keysym);
 
