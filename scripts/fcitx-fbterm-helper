@@ -61,7 +61,7 @@ if [ "$FCITX_RUN" == "0" -a "$LAUNCH" == "1" ]; then
     fi
     if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
         echo "Launch DBus..."
-        toeval=`dbus-launch --auto-syntax`
+        toeval=`dbus-launch --sh-syntax`
         eval "$toeval"
     fi
     echo "Launch Fcitx..."
@@ -72,6 +72,15 @@ fi
 if [ $FCITX_RUN == "1" ]; then
     echo "Launch fbterm..."
     fbterm -i fcitx-fbterm
+    if [ "$LAUNCH" == "1" ] ; then
+        fcitxpid=`dbus-send --print-reply --type=method_call --session --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.fcitx.Fcitx-0 | grep uint32 | awk '{print $2}'`
+        if ! test -z "$fcitxpid" ; then
+            kill $fcitxpid
+        fi
+        if ! test -z "$DBUS_SESSION_BUS_PID"; then
+            kill $DBUS_SESSION_BUS_PID
+        fi
+    fi
 else
     echo '========================================================='
     echo 'Fcitx is not running, you may setup it mannually'
