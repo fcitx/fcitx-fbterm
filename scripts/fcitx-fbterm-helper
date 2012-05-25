@@ -3,15 +3,19 @@
 function Usage()
 {
     echo -e "$0 - Fcitx Fbterm launch helper"
-    echo -e "\t-l\t\tLaunch Fcitx automatically"
-    echo -e "\t-h\t\tPrint this help"
+    echo -e "\t-d [display number]\t\tspecify display number (For example 0)"
+    echo -e "\t-l\t\t\t\tLaunch Fcitx automatically"
+    echo -e "\t-h\t\t\t\tPrint this help"
 }
 
 LAUNCH=0
 FCITX_RUN=0
 
-while getopts "lh" opt; do
+while getopts "d:lh" opt; do
     case $opt in
+        d)
+            DISPLAY_NUM=$OPTARG
+            ;;
         l)
             LAUNCH=1
             ;;
@@ -21,6 +25,12 @@ while getopts "lh" opt; do
             ;;
     esac
 done
+
+OLD_DISPLAY=$DISPLAY
+
+if [ "x$DISPLAY_NUM" != "x" ]; then
+    export DISPLAY=":$DISPLAY_NUM"
+fi
 
 if [ "x$DISPLAY" != "x" ]; then
     number=`echo $DISPLAY | sed 's|\:\([0-9]\+\)\(\..*\)\?|\1|g'`
@@ -70,6 +80,8 @@ if [ "$FCITX_RUN" == "0" -a "$LAUNCH" == "1" ]; then
 fi
 
 if [ $FCITX_RUN == "1" ]; then
+    # restore old DISPLAY
+    export DISPLAY=$OLD_DISPLAY
     echo "Launch fbterm..."
     fbterm -i fcitx-fbterm
     if [ "$LAUNCH" == "1" ] ; then
