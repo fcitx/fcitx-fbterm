@@ -11,6 +11,10 @@ function Usage()
 LAUNCH=0
 FCITX_RUN=0
 
+if [ "x$SHELL" = "x" ]; then
+    echo "\$SHELL is not set"
+fi
+
 while getopts "d:lh" opt; do
     case $opt in
         d)
@@ -81,9 +85,8 @@ fi
 
 if [ $FCITX_RUN == "1" ]; then
     # restore old DISPLAY
-    export DISPLAY=$OLD_DISPLAY
     echo "Launch fbterm..."
-    fbterm -i fcitx-fbterm
+    fbterm -i fcitx-fbterm -- sh -c "export DISPLAY=$OLD_DISPLAY; $SHELL"
     if [ "$LAUNCH" == "1" ] ; then
         fcitxpid=`dbus-send --print-reply --type=method_call --session --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.fcitx.Fcitx-0 | grep uint32 | awk '{print $2}'`
         if ! test -z "$fcitxpid" ; then
