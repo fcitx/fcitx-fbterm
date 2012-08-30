@@ -30,8 +30,6 @@ while getopts "d:lh" opt; do
     esac
 done
 
-OLD_DISPLAY=$DISPLAY
-
 if [ "x$DISPLAY_NUM" != "x" ]; then
     export DISPLAY=":$DISPLAY_NUM"
 fi
@@ -48,7 +46,7 @@ else
 fi
 
 echo "Test whether fcitx is running correctly with dbus..."
-dbus-send --print-reply --type=method_call --session --dest=org.fcitx.Fcitx-$number /inputmethod org.freedesktop.DBus.Introspectable.Introspect > /dev/null 2>&1
+fcitx-remote > /dev/null 2>&1
 
 if [ $? == "1" ]; then
     echo "Cannot communicate fcitx with DBus."
@@ -68,32 +66,18 @@ if [ "$FCITX_RUN" == "0" -a "$LAUNCH" == "1" ]; then
         echo "There is already a fcitx running, Fcitx cannot support multi instance currently"
         exit 1
     fi
-    if [ "x$DISPLAY" != "x" ]; then
-        echo '$DISPLAY is set, but there is no fcitx running.'
-        echo "You'd better start it from X."
-        exit 1
-    fi
-    if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
-        echo "Launch DBus..."
-        toeval=`dbus-launch --sh-syntax`
-        eval "$toeval"
-    fi
     echo "Launch Fcitx..."
-    fcitx > /dev/null 2>&1
+    fcitx -D > /dev/null 2>&1 &
+    fcitxpid=$!
     FCITX_RUN=1
 fi
 
 if [ $FCITX_RUN == "1" ]; then
-    # restore old DISPLAY
     echo "Launch fbterm..."
-    fbterm -i fcitx-fbterm -- sh -c "export DISPLAY=$OLD_DISPLAY; $SHELL"
+    fbterm -i fcitx-fbterm
     if [ "$LAUNCH" == "1" ] ; then
-        fcitxpid=`dbus-send --print-reply --type=method_call --session --dest=org.freedesktop.DBus / org.freedesktop.DBus.GetConnectionUnixProcessID string:org.fcitx.Fcitx-0 | grep uint32 | awk '{print $2}'`
         if ! test -z "$fcitxpid" ; then
             kill $fcitxpid
-        fi
-        if ! test -z "$DBUS_SESSION_BUS_PID"; then
-            kill $DBUS_SESSION_BUS_PID
         fi
     fi
 else

@@ -1,7 +1,12 @@
-project(fcitx-fbterm)
 cmake_minimum_required(VERSION 2.6)
-FIND_PACKAGE(Gettext REQUIRED)
-FIND_PACKAGE(Fcitx REQUIRED)
+
+project(fcitx-fbterm)
+
+find_package(PkgConfig REQUIRED)
+find_package(Gettext REQUIRED)
+find_package(Fcitx 4.2.6 REQUIRED)
+
+pkg_check_modules(FCITX_GCLIENT "fcitx-gclient>=4.2.6" REQUIRED)
 
 # uninstall target
 configure_file(

@@ -24,8 +24,10 @@
 #include <wchar.h>
 #include <iconv.h>
 #include <endian.h>
+#include <fcitx/frontend.h>
+#include <fcitx-gclient/fcitxclient.h>
+#include <fcitx-utils/utf8.h>
 #include "imapi.h"
-#include "client.h"
 #include "keycode.h"
 #include "keymap.h"
 
@@ -62,18 +64,18 @@ static void cursor_pos_changed(unsigned x, unsigned y);
 static void update_fbterm_info(Info *info);
 static gboolean iochannel_fbterm_callback(GIOChannel *source, GIOCondition condition, gpointer data);
 
-static void _fcitx_fbterm_connect_cb(FcitxIMClient* client, void* user_data);
-static void _fcitx_fbterm_destroy_cb(FcitxIMClient* client, void* user_data);
+static void _fcitx_fbterm_connect_cb(FcitxClient* client, void* user_data);
+static void _fcitx_fbterm_destroy_cb(FcitxClient* client, void* user_data);
 static void
-_fcitx_fbterm_enable_im_cb(DBusGProxy* proxy, void* user_data);
+_fcitx_fbterm_enable_im_cb(FcitxClient* client, void* user_data);
 static void
-_fcitx_fbterm_close_im_cb(DBusGProxy* proxy, void* user_data);
+_fcitx_fbterm_close_im_cb(FcitxClient* client, void* user_data);
 static void
-_fcitx_fbterm_commit_string_cb(DBusGProxy* proxy, char* str, void* user_data);
+_fcitx_fbterm_commit_string_cb(FcitxClient* client, char* str, void* user_data);
 static void
-_fcitx_fbterm_forward_key_cb(DBusGProxy* proxy, guint keyval, guint state, gint type, void* user_data);
+_fcitx_fbterm_forward_key_cb(FcitxClient* client, guint keyval, guint state, gint type, void* user_data);
 static void
-_fcitx_fbterm_update_client_side_ui_cb(DBusGProxy* proxy, char* auxup, char* auxdown, char* preedit, char* candidateword, char* _imname, int cursor_pos, void* user_data);
+_fcitx_fbterm_update_client_side_ui_cb(FcitxClient* client, char* auxup, char* auxdown, char* preedit, char* candidateword, char* _imname, int cursor_pos, void* user_data);
 static unsigned text_width(char* str);
 static int bisearch(unsigned ucs, const struct interval *table, unsigned max);
 static int is_double_width(unsigned ucs);
@@ -96,7 +98,7 @@ static char raw_mode = 1;
 static int cursor_x;
 static int cursor_y;
 static GMainLoop *main_loop;
-static FcitxIMClient* client;
+static FcitxClient* client;
 static FcitxKeyState state;
 static int active = 0;
 static Info currentInfo;
@@ -110,8 +112,8 @@ static void im_active(void)
     if (raw_mode) {
         init_keycode_state();
     }
-    FcitxIMClientFocusIn(client);
-    FcitxIMClientEnableIC(client);
+    fcitx_client_focus_in(client);
+    fcitx_client_enable_ic(client);
     active = 1;
 }
 
@@ -121,7 +123,7 @@ static void im_deactive(void)
     set_im_window(0, rect);
     set_im_window(1, rect);
     set_im_window(2, rect);
-    FcitxIMClientCloseIC(client);
+    fcitx_client_close_ic(client);
     state = 0;
     active = 0;
 }
@@ -250,9 +252,9 @@ static void process_raw_key(char *buf, unsigned int len)
                 keysym = linux_keysym_to_fcitx_keysym(fallback_keysym, code);
             }
 
-            FcitxIMClientFocusIn(client);
+            fcitx_client_focus_in(client);
 
-            if (keysym == FcitxKey_None || FcitxIMClientProcessKey(client, keysym, code, state, (down ? FCITX_PRESS_KEY : FCITX_RELEASE_KEY), 0) <= 0) {
+            if (keysym == FcitxKey_None || fcitx_client_process_key_sync(client, keysym, code, state, (down ? FCITX_PRESS_KEY : FCITX_RELEASE_KEY), 0) <= 0) {
                 char *str = keysym_to_term_string(linux_keysym, down);
                 if (str)
                     put_im_text(str, strlen(str));
@@ -286,57 +288,49 @@ static gboolean iochannel_fbterm_callback(GIOChannel *source, GIOCondition condi
     return TRUE;
 }
 
-void _fcitx_fbterm_connect_cb(FcitxIMClient* client, void* user_data)
+void _fcitx_fbterm_connect_cb(FcitxClient* client, void* user_data)
 {
-    if (IsFcitxIMClientValid(client))
+    if (fcitx_client_is_valid(client))
     {
-        FcitxIMClientConnectSignal(client,
-                                   G_CALLBACK(_fcitx_fbterm_enable_im_cb),
-                                   G_CALLBACK(_fcitx_fbterm_close_im_cb),
-                                   G_CALLBACK(_fcitx_fbterm_commit_string_cb),
-                                   G_CALLBACK(_fcitx_fbterm_forward_key_cb),
-                                   G_CALLBACK(_fcitx_fbterm_update_client_side_ui_cb),
-                                   user_data,
-                                   NULL);
-
-        FcitxCapacityFlags flags = CAPACITY_CLIENT_SIDE_UI;
-        FcitxIMClientSetCapacity(client, flags);
+        
+        FcitxCapacityFlags flags = CAPACITY_CLIENT_SIDE_UI | CAPACITY_CLIENT_SIDE_CONTROL_STATE;
+        fcitx_client_set_capacity(client, flags);
 
         if (active)
         {
-            FcitxIMClientFocusIn(client);
-            FcitxIMClientEnableIC(client);
+            fcitx_client_focus_in(client);
+            fcitx_client_enable_ic(client);
         }
     }
 }
 
-void _fcitx_fbterm_destroy_cb(FcitxIMClient* client, void* user_data)
+void _fcitx_fbterm_destroy_cb(FcitxClient* client, void* user_data)
 {
     state = 0;
 }
 
-void _fcitx_fbterm_close_im_cb(DBusGProxy* proxy, void* user_data)
+void _fcitx_fbterm_close_im_cb(FcitxClient* client, void* user_data)
 {
     state = 0;
 }
 
-void _fcitx_fbterm_commit_string_cb(DBusGProxy* proxy, char* str, void* user_data)
+void _fcitx_fbterm_commit_string_cb(FcitxClient* client, char* str, void* user_data)
 {
     unsigned short result_len = strlen(str);
     put_im_text( str, result_len );
 }
 
-void _fcitx_fbterm_enable_im_cb(DBusGProxy* proxy, void* user_data)
+void _fcitx_fbterm_enable_im_cb(FcitxClient* client, void* user_data)
 {
     state = 0;
 }
 
-void _fcitx_fbterm_forward_key_cb(DBusGProxy* proxy, guint keyval, guint state, gint type, void* user_data)
+void _fcitx_fbterm_forward_key_cb(FcitxClient* client, guint keyval, guint state, gint type, void* user_data)
 {
 
 }
 
-void _fcitx_fbterm_update_client_side_ui_cb(DBusGProxy* proxy, char* auxup, char* auxdown, char* preedit, char* candidateword, char* _imname, int cursor_pos, void* user_data)
+void _fcitx_fbterm_update_client_side_ui_cb(FcitxClient* client, char* auxup, char* auxdown, char* preedit, char* candidateword, char* _imname, int cursor_pos, void* user_data)
 {
     snprintf(textup, BUFSIZE, "%s%s", auxup, preedit);
     snprintf(textdown, BUFSIZE, "%s%s", auxdown, candidateword);
@@ -355,7 +349,14 @@ int main()
 
     g_type_init();
 
-    client = FcitxIMClientOpen(_fcitx_fbterm_connect_cb, _fcitx_fbterm_destroy_cb, NULL);
+    client = fcitx_client_new();
+    g_signal_connect(client, "connected", G_CALLBACK(_fcitx_fbterm_connect_cb), NULL);
+    g_signal_connect(client, "disconnected", G_CALLBACK(_fcitx_fbterm_destroy_cb), NULL);
+    g_signal_connect(client, "enable-im", G_CALLBACK(_fcitx_fbterm_enable_im_cb), NULL);
+    g_signal_connect(client, "close-im", G_CALLBACK(_fcitx_fbterm_close_im_cb), NULL);
+    g_signal_connect(client, "forward-key", G_CALLBACK(_fcitx_fbterm_forward_key_cb), NULL);
+    g_signal_connect(client, "commit-string", G_CALLBACK(_fcitx_fbterm_commit_string_cb), NULL);
+    g_signal_connect(client, "update-client-side-ui", G_CALLBACK(_fcitx_fbterm_update_client_side_ui_cb), NULL);
 
     register_im_callbacks(cbs);
     connect_fbterm(1);
@@ -363,7 +364,7 @@ int main()
     main_loop = g_main_loop_new(NULL, FALSE);
     g_main_loop_run(main_loop);
 
-    FcitxIMClientClose(client);
+    g_object_unref(client);
     g_io_channel_unref(iochannel_fbterm);
     g_main_loop_unref(main_loop);
 
